@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>リノハナから、あなたへ</title>
+<link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #f2e8d9;
+    --bg-card:     #faf5ee;
+    --border:      #ddd0bb;
+    --pink-line:   #c9a099;
+    --green-line:  #8faa82;
+    --slate-line:  #8fa5b0;
+    --text-main:   #3e2e22;
+    --text-soft:   #6e5444;
+    --text-muted:  #9e8070;
+    --brown-dark:  #4a3020;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: 'Zen Maru Gothic', 'Kosugi Maru', sans-serif;
+    line-height: 2;
+    overflow-x: hidden;
+  }
+
+  .page-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  /* ヘッダー */
+  .site-header {
+    text-align: center;
+    padding: 72px 0 48px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .logo-main {
+    font-family: 'Zen Maru Gothic', 'Kosugi Maru', sans-serif;
+    font-size: clamp(2.4rem, 8vw, 3.4rem);
+    font-weight: 700;
+    color: var(--brown-dark);
+    letter-spacing: 0.18em;
+    display: block;
+    line-height: 1.15;
+  }
+
+  .logo-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.35em;
+    margin-top: 8px;
+    display: block;
+  }
+
+  .header-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--border);
+    margin: 20px auto;
+    border: none;
+  }
+
+  .header-tagline {
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    letter-spacing: 0.05em;
+  }
+
+  /* イントロ */
+  .intro-block {
+    background: var(--bg-card);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    padding: 36px 40px;
+    margin-bottom: 56px;
+    animation: fadeUp 0.9s 0.15s ease both;
+  }
+
+  .intro-label {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px;
+    margin-bottom: 20px;
+  }
+
+  .intro-block p {
+    font-size: 0.93rem;
+    color: var(--text-soft);
+    margin-bottom: 12px;
+  }
+
+  .lino-meaning {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    border-left: 2px solid var(--border);
+    padding-left: 14px;
+    margin: 16px 0;
+    line-height: 1.8;
+  }
+
+  .tagline-big {
+    font-size: 1.05rem;
+    color: var(--brown-dark);
+    line-height: 1.9;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border);
+    font-weight: 700;
+  }
+
+  /* セクション共通 */
+  .section {
+    margin-bottom: 48px;
+    animation: fadeUp 0.9s ease both;
+  }
+  .section:nth-child(3) { animation-delay: 0.2s; }
+  .section:nth-child(4) { animation-delay: 0.35s; }
+  .section:nth-child(5) { animation-delay: 0.5s; }
+
+  .section-card {
+    background: var(--bg-card);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--border);
+    padding: 40px 40px 36px;
+  }
+
+  .card-pink  { border-top-color: var(--pink-line);  }
+  .card-green { border-top-color: var(--green-line); }
+  .card-slate { border-top-color: var(--slate-line); }
+
+  .to-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 18px;
+  }
+
+  .section-title {
+    font-size: clamp(1.05rem, 3.5vw, 1.3rem);
+    font-weight: 700;
+    color: var(--brown-dark);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-body p {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin-bottom: 18px;
+    line-height: 2.1;
+  }
+
+  .emphasis-box {
+    border-left: 3px solid var(--border);
+    padding: 14px 20px;
+    margin: 24px 0;
+    font-size: 0.97rem;
+    font-weight: 700;
+    line-height: 1.9;
+    color: var(--brown-dark);
+  }
+  .emp-pink  { border-left-color: var(--pink-line);  }
+  .emp-green { border-left-color: var(--green-line); }
+  .emp-slate { border-left-color: var(--slate-line); }
+
+  .plain-list {
+    list-style: none;
+    margin: 20px 0;
+    border-top: 1px solid var(--border);
+  }
+  .plain-list li {
+    font-size: 0.93rem;
+    color: var(--text-soft);
+    padding: 10px 0 10px 1em;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .plain-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+
+  .closing-note {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border);
+    line-height: 2;
+  }
+
+  /* フッター */
+  .site-footer {
+    text-align: center;
+    padding: 48px 0 16px;
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
+
+  .footer-logo {
+    font-size: 1.4rem;
+    color: var(--brown-dark);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+
+  .footer-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.25em;
+    margin-bottom: 24px;
+  }
+
+  .footer-message {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 2;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 520px) {
+    .section-card { padding: 28px 20px 24px; }
+    .intro-block  { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <header class="site-header">
+    <span class="logo-main">リノハナ</span>
+    <span class="logo-sub">L I N O H A N A</span>
+    <hr class="header-rule">
+    <p class="header-tagline">一人ひとりの光、輝きを大切にする温かい場所。</p>
+  </header>
+
+  <div class="intro-block">
+    <span class="intro-label">リノハナとは</span>
+    <p>ハワイ語で、「LINO」には<strong>「輝く」</strong>という意味が、「OHANA」には<strong>「繋がる・心でつながる・仲間・家族」</strong>という意味があります。</p>
+    <div class="lino-meaning">
+      「LINOHANA（リノハナ）」は、私たちの願いと祈りを表現した造語です。
+    </div>
+    <p class="tagline-big">
+      リノハナにとって、「不登校」は入口であって、目的地ではないのです。<br>
+      今、誰よりも痛みを抱えているかもしれない人へ寄り添う。<br>
+      そこから始めて、やがてすべての人の居場所へ——それが私たちのささやかな願いです。
+    </p>
+  </div>
+
+  <section class="section">
+    <div class="section-card card-pink">
+      <span class="to-label">学校に行けなくて、苦しいあなたへ</span>
+      <h2 class="section-title">学校に行けない自分を、<br>責めていませんか。</h2>
+      <div class="section-body">
+        <p>「みんなは行っているのに」「このままでどうなるんだろう」——そんな言葉が、朝ごとに頭の中を回っているかもしれません。</p>
+        <p>でも、少し立ち止まって聞いてください。</p>
+        <div class="emphasis-box emp-pink">
+          あなたが学校に行けないのは、あなたが弱いからじゃない。
+        </div>
+        <p>今の学校という場所が、すべての人にとって「いられる場所」になっていないだけかもしれない。それはあなたの失敗じゃなくて、まだ世界があなたに合った場所を用意できていないということなのかもしれません。</p>
+        <p>リノハナは、何かができるようになるための場所じゃありません。</p>
+        <ul class="plain-list">
+          <li>成績もない</li>
+          <li>評価もない</li>
+          <li>「ちゃんとしなきゃ」もない</li>
+        </ul>
+        <p>ただ、ここに来ていい。ここに居ていい。それだけです。</p>
+        <p>花は、無理に咲かせるものじゃない。土があって、光があって、水があれば……、自分のタイミングで、自分だけの花を咲かせる。</p>
+        <div class="emphasis-box emp-pink">
+          あなたにも、そのタイミングがきっとある。<br>
+          私たちはそれを、一緒に待ちたいと思っています。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-card card-green">
+      <span class="to-label">子どもの不登校に、一人で向き合っているお母さんへ</span>
+      <h2 class="section-title">毎朝が、戦場のようだったかもしれません。</h2>
+      <div class="section-body">
+        <p>「今日は行けそう？」と聞くべきか、聞かないべきか。泣いている子を前に、何もできない自分。「私の育て方が悪かったのか」という問いが、夜中に何度も頭をよぎる。</p>
+        <p>誰にも言えなくて、一人で抱えてきたのではないですか。</p>
+        <div class="emphasis-box emp-green">
+          あなたは、十分すぎるほど頑張ってきた。
+        </div>
+        <p>子どもが苦しむのを見ながら、それでも毎日そばにいることがどれほど消耗することか。それ自体が、深い愛情の証です。</p>
+        <p>リノハナは、お子さんのための場所であると同時に、あなたのための場所でもあります。「うちの子、どうすればいいか」という答えを出す場所ではありません。</p>
+        <ul class="plain-list">
+          <li>ただ話せる場所</li>
+          <li>聞いてもらえる場所</li>
+          <li>同じ痛みを知っている人と、お茶を飲める場所</li>
+        </ul>
+        <div class="emphasis-box emp-green">
+          一人で抱えなくていい。その荷物を、少しここに置いていってください。<br>
+          お子さんが自分の花を咲かせる日まで、私たちも一緒にそばにいます。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-card card-slate">
+      <span class="to-label">不登校の子どもを前に、痛みを感じている先生へ</span>
+      <h2 class="section-title">「自分のクラスから不登校が出た」——<br>そのことを、誰よりも深刻に受け止めているかもしれません。</h2>
+      <div class="section-body">
+        <p>家庭訪問しても会えない。連絡しても返事がない。授業の準備をしながら、あの子の席が空いていることが頭から離れない。同僚には相談しにくい。管理職には数字として報告しなければならない。</p>
+        <div class="emphasis-box emp-slate">
+          その孤独を、私たちは軽く見ていません。
+        </div>
+        <p>先生もまた、今の学校というシステムの中で、十分に「いられる場所」を持てていないのかもしれない。</p>
+        <p>リノハナは、学校の外にある場所です。だからこそ、学校の論理から少し離れて、ただ一緒に話しをしてみるだけです。答えを出す場ではなく、一緒に悩める場として、先生にも開かれています。</p>
+        <div class="emphasis-box emp-slate">
+          あなたが感じているその痛みは、教師としての良心の証です。<br>
+          その感覚を、どうか手放さないでください。
+        </div>
+        <p class="closing-note">そしてもし、学校の外で誰かと繋がりたいと思ったとき……、<br>リノハナはここにあります。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-logo">リノハナ ＊ LINOHANA</div>
+    <div class="footer-sub">一人ひとりの光、輝きを大切にする温かい場所</div>
+    <p class="footer-message">
+      リノハナは、今ここから始まります。<br>
+      まだ小さな、でも本気の場所です。<br>
+      一人一人の輝きを信じて、共に育てていきたいと思っています。
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>
