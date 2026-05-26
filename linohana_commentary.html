@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>リノハナ 趣意書解説書</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:     #faf8f3;
+    --parchment: #f3efe6;
+    --sand:      #e8e0d0;
+    --warm:      #d4c9b4;
+    --moss:      #7a8c6e;
+    --moss-light:#a8b89a;
+    --earth:     #8b7355;
+    --earth-light:#b09a7a;
+    --rose:      #c4857a;
+    --rose-light:#e8c4be;
+    --dusk:      #5c6b7a;
+    --ink:       #2c2c2c;
+    --ink-soft:  #4a4a4a;
+    --ink-mute:  #7a7a7a;
+    --gold:      #c9a84c;
+    --gold-light:#e8d4a0;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    line-height: 2;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(170deg, #f5f0e8 0%, #ece5d8 50%, #e0d8cc 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .hero::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(ellipse 50% 50% at 15% 20%, rgba(196,133,122,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 85% 80%, rgba(122,140,110,0.14) 0%, transparent 60%);
+  }
+
+  /* 背景の水面イメージ */
+  .iceberg-bg {
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:35%;
+    background: linear-gradient(to bottom, rgba(92,107,122,0.08), rgba(92,107,122,0.18));
+    border-top: 1px solid rgba(92,107,122,0.15);
+  }
+
+  .hero-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    letter-spacing: 0.4em;
+    color: var(--earth-light);
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5.5vw, 3.4rem);
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    line-height: 1.5;
+    position: relative;
+  }
+
+  .hero-title span {
+    display: block;
+    font-size: 0.45em;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--ink-mute);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-intro {
+    margin-top: 2rem;
+    max-width: 500px;
+    padding: 1.5rem 2rem;
+    background: rgba(255,255,255,0.45);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.6);
+    font-size: 0.93rem;
+    color: var(--ink-soft);
+    line-height: 2.2;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+
+  .scroll-hint {
+    position:absolute; bottom:2rem; left:50%;
+    transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+    color:var(--ink-mute); font-size:0.72rem; letter-spacing:0.2em;
+    animation:bounce 2.5s ease-in-out infinite;
+  }
+  .scroll-hint::after {
+    content:''; width:1px; height:40px;
+    background:linear-gradient(to bottom, var(--warm), transparent);
+  }
+  @keyframes bounce {
+    0%,100%{ opacity:0.5; transform:translateX(-50%) translateY(0); }
+    50%    { opacity:1;   transform:translateX(-50%) translateY(6px); }
+  }
+
+  /* ── CHAPTER NAV ── */
+  .chapter-nav {
+    background: var(--ink);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .chapter-nav::-webkit-scrollbar { display:none; }
+
+  .chapter-nav-inner {
+    display: flex;
+    white-space: nowrap;
+    min-width: max-content;
+  }
+
+  .chapter-nav a {
+    display: inline-block;
+    padding: 0.9rem 1.4rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.3s, background 0.3s;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+  .chapter-nav a:hover,
+  .chapter-nav a.active {
+    color: var(--gold-light);
+    background: rgba(255,255,255,0.05);
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── CHAPTER ── */
+  .chapter {
+    padding: 5rem 2rem;
+    position: relative;
+  }
+  .chapter:nth-child(odd)  { background: var(--cream); }
+  .chapter:nth-child(even) { background: var(--parchment); }
+
+  .chapter-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    letter-spacing: 0.3em;
+    color: var(--earth-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .chapter-title {
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    position: relative;
+    padding-bottom: 1.2rem;
+  }
+  .chapter-title::after {
+    content:'';
+    position:absolute;
+    bottom:0; left:0;
+    width:40px; height:2px;
+    background: linear-gradient(to right, var(--moss), var(--gold));
+  }
+
+  /* ── SECTION ── */
+  .section-block {
+    margin: 3.5rem 0;
+  }
+
+  .section-heading {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.12em;
+    margin-bottom: 1.2rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--moss);
+    line-height: 1.8;
+  }
+
+  p {
+    font-size: clamp(0.88rem, 2vw, 0.98rem);
+    color: var(--ink-soft);
+    line-height: 2.3;
+    letter-spacing: 0.04em;
+    margin-bottom: 1.4em;
+  }
+
+  /* ── WHISPER（斜体の語りかけ） ── */
+  .whisper {
+    margin: 2rem 0;
+    padding: 1.2rem 1.5rem 1.2rem 2rem;
+    border-left: 2px solid var(--rose-light);
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--rose);
+    line-height: 2.2;
+    background: rgba(196,133,122,0.04);
+  }
+
+  /* ── ACCENT BOX ── */
+  .accent-box {
+    margin: 2.5rem 0;
+    padding: 2rem 2.5rem;
+    background: linear-gradient(135deg,
+      rgba(122,140,110,0.07),
+      rgba(201,168,76,0.06));
+    border: 1px solid var(--warm);
+    font-size: 0.95rem;
+    line-height: 2.3;
+    color: var(--ink-soft);
+  }
+  .accent-box strong {
+    color: var(--moss);
+    font-weight: 500;
+  }
+
+  /* ── QUOTE BOX ── */
+  .quote-box {
+    margin: 2.5rem auto;
+    max-width: 480px;
+    padding: 2.5rem;
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+  }
+  .quote-box blockquote {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 400;
+    line-height: 2.2;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .quote-box cite {
+    font-style: normal;
+    font-size: 0.78rem;
+    color: var(--gold-light);
+    letter-spacing: 0.2em;
+  }
+
+  /* ── STAT ── */
+  .stat-row {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    flex: 1;
+    min-width: 140px;
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid var(--sand);
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--moss);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--ink-mute);
+    letter-spacing: 0.1em;
+    line-height: 1.8;
+  }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow {
+    margin: 2.5rem 0;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .flow-item {
+    flex: 1;
+    min-width: 120px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid var(--sand);
+    position: relative;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+  .flow-item.highlight {
+    background: var(--moss);
+    color: white;
+    border-color: var(--moss);
+  }
+  .flow-item.highlight .flow-label { color: rgba(255,255,255,0.7); }
+  .flow-label {
+    font-size: 0.72rem;
+    color: var(--ink-mute);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 0.3rem;
+    color: var(--warm);
+    font-size: 1.2rem;
+    align-self: center;
+  }
+
+  /* ── PILLAR LIST ── */
+  .pillar-list {
+    display: grid;
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  .pillar-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid var(--sand);
+    transition: border-color 0.3s;
+  }
+  .pillar-item:hover { border-color: var(--moss-light); }
+  .pillar-num-badge {
+    flex-shrink: 0;
+    width: 2.4rem; height: 2.4rem;
+    background: var(--moss);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 300;
+  }
+  .pillar-content {}
+  .pillar-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .pillar-body {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 2.1;
+    margin-bottom: 0;
+  }
+
+  /* ── STANCE CARDS ── */
+  .stance-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .stance-card {
+    padding: 1.5rem;
+    border: 1px solid var(--sand);
+    background: var(--cream);
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .stance-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--moss-light);
+  }
+  .stance-kw {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--earth);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.6rem;
+  }
+  .stance-why {
+    font-size: 0.82rem;
+    color: var(--ink-mute);
+    line-height: 2;
+    margin-bottom: 0;
+  }
+
+  /* ── CLOSING ── */
+  .closing {
+    padding: 7rem 2rem;
+    background: linear-gradient(170deg, #2a2a28 0%, #35302a 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(ellipse 70% 50% at 50% 60%, rgba(122,140,110,0.12) 0%, transparent 70%);
+  }
+
+  .closing h2 {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--gold-light);
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .closing p {
+    color: rgba(255,255,255,0.72);
+    max-width: 560px;
+    margin: 0 auto 1.4em;
+    position: relative;
+  }
+
+  .closing-accent {
+    margin: 3rem auto;
+    max-width: 500px;
+    padding: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: rgba(255,255,255,0.85);
+    line-height: 2.3;
+    letter-spacing: 0.06em;
+    position: relative;
+  }
+
+  .closing-sign {
+    margin-top: 4rem;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.38);
+    letter-spacing: 0.2em;
+    line-height: 2.5;
+    position: relative;
+  }
+
+  /* ── LINK BAR ── */
+  .link-bar {
+    background: var(--parchment);
+    border-top: 1px solid var(--sand);
+    padding: 2rem;
+    text-align: center;
+  }
+  .link-bar a {
+    display: inline-block;
+    padding: 0.9rem 2.5rem;
+    background: var(--moss);
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    transition: background 0.3s;
+  }
+  .link-bar a:hover { background: var(--earth); }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .stat-row { flex-direction: column; }
+    .stance-cards { grid-template-columns: 1fr 1fr; }
+    .flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="iceberg-bg"></div>
+  <div class="hero-label">L I N O H A N A</div>
+  <h1 class="hero-title">
+    <span>設立趣意書</span>
+    解説書
+  </h1>
+  <div class="hero-intro">
+    この解説書は、リノハナ設立趣意書の「なぜ」を<br>
+    あなたの日常の感覚に引き寄せて届けるために書きました。<br><br>
+    読み終えたとき、あなたの胸の中に<br>
+    何かひとつ、静かに灯るものがあれば幸いです。
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- CHAPTER NAV -->
+<nav class="chapter-nav">
+  <div class="chapter-nav-inner">
+    <a href="#ch-intro" class="active">はじめに</a>
+    <a href="#ch-1">第一章</a>
+    <a href="#ch-2">第二章</a>
+    <a href="#ch-3">第三章</a>
+    <a href="#ch-4">第四章</a>
+    <a href="#ch-5">第五章</a>
+    <a href="#ch-6">第六章</a>
+    <a href="#ch-close">結び</a>
+  </div>
+</nav>
+
+<!-- はじめに -->
+<section class="chapter" id="ch-intro">
+  <div class="container">
+    <div class="chapter-eyebrow fade-in">introduction</div>
+    <h2 class="chapter-title fade-in">はじめに<br>— この解説書を手に取っているあなたへ —</h2>
+
+    <p class="fade-in">あなたは今、どんな気持ちでこの文章を読んでいるでしょうか。</p>
+    <p class="fade-in">「うちの子が学校に行けなくなった」——その一言が、あなたの日常を一変させた日があったかもしれません。あの朝、子どもが布団から出られなかったとき。泣きながら「行きたくない」と言ったとき。あるいは何も言わず、ただ黙って部屋に閉じこもったとき。</p>
+    <p class="fade-in">そのとき、あなたはどうしましたか。「私の育て方が悪かったのだろうか」と自分を責めましたか。夜中に眠れないまま不安の渦に飲み込まれましたか。「誰かに話したい、でも話せない」という孤独の中で、ひとり抱えてきましたか。</p>
+
+    <div class="accent-box fade-in">
+      リノハナの趣意書は、そういうあなたのために書かれた文章です。<br>
+      この解説書は、趣意書の言葉を、あなたの日常の感覚に引き寄せて語り直すために書きました。<br><br>
+      専門知識は必要ありません。あなたがこれまで感じてきたこと、<br>
+      疑問に思ってきたこと——その感覚こそが、この文章を読む最良の「地図」になります。
+    </div>
+  </div>
+</section>
+
+<!-- 第一章 -->
+<section class="chapter" id="ch-1">
+  <div class="container">
+    <div class="chapter-eyebrow fade-in">chapter 01</div>
+    <h2 class="chapter-title fade-in">時代の転換点に立って</h2>
+
+    <div class="section-block">
+      <div class="section-heading fade-in">あなたが「おかしい」と感じてきたことは、正しかった</div>
+      <p class="fade-in">子どもが不登校になったとき、多くの親が最初に考えるのは「うちの子に問題があるのか」ということです。あるいは「私の育て方が悪かったのか」と。でもここで、少し立ち止まって考えてみてください。</p>
+
+      <div class="stat-row fade-in">
+        <div class="stat-card">
+          <span class="stat-num">34万</span>
+          <span class="stat-label">2023年度の<br>不登校児童生徒数</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">2倍</span>
+          <span class="stat-label">10年前と比べた<br>増加の目安</span>
+        </div>
+      </div>
+
+      <div class="accent-box fade-in">
+        もし、これだけ多くの子どもたちが「学校に行けない」状態になっているとしたら——<br><br>
+        それは一人ひとりの子どもの問題ではなく、<br>
+        <strong>社会と学校の仕組みそのものに、何か根本的なズレが生まれている</strong>ということではないでしょうか。
+      </div>
+
+      <p class="fade-in">子どもたちは、社会が作り出した構造的なズレに、正直に反応しているのかもしれません。大人は長い間かけて「適応」する方法を学んでいるから、そのズレに鈍感になっています。でも子どもは、まだその訓練を受けていないから、身体や心がそのまま反応する。</p>
+      <p class="fade-in">不登校は、「問題のある子」が起こす行動ではなく、「健康な感受性を持った子」が発している社会へのサインかもしれない——リノハナはそう考えています。</p>
+
+      <div class="whisper fade-in">「時代の転換点」という言葉は、あなたを責任から逃がすためではありません。あなたが感じてきた「何かおかしい」という感覚に、正当な根拠を与えるためにあります。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 第二章 -->
+<section class="chapter" id="ch-2">
+  <div class="container">
+    <div class="chapter-eyebrow fade-in">chapter 02</div>
+    <h2 class="chapter-title fade-in">五つの時代認識</h2>
+
+    <!-- ① -->
+    <div class="section-block">
+      <div class="section-heading fade-in">① 社会とコミュニティの分断　— 「孤独」は個人の弱さではない —</div>
+      <p class="fade-in">「近所の人の顔を知らない」「誰かに頼りたいけど頼れる人がいない」「子どもの不登校を、だれにも言えないでいる」——このような感覚を持っていたとしたら、それはあなたが「社会性が低い」からではありません。私たちの社会そのものが、人と人とのつながりを支える仕組みを、長い時間をかけて解体してきたからです。</p>
+      <div class="accent-box fade-in">
+        あなたが一人で抱えてきたのは、<br>
+        あなたが弱かったからではありません。<br>
+        <strong>頼れる場所が、社会からなくなっていたからです。</strong>
+      </div>
+    </div>
+
+    <!-- ② -->
+    <div class="section-block">
+      <div class="section-heading fade-in">② 外部評価依存の限界　— 子どもは「評価」に疲れている —</div>
+      <p class="fade-in">不登校の子どもの多くは、「勉強が嫌い」なのではありません。「評価される場所に毎日いること」に、心が悲鳴を上げているのです。</p>
+      <div class="flow fade-in">
+        <div class="flow-item">
+          <span class="flow-label">日常</span>
+          テスト・順位・友達関係で毎日「評価」される
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">
+          <span class="flow-label">感覚の歪み</span>
+          評価されない自分には価値がないと感じる
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item highlight">
+          <span class="flow-label">身体の反応</span>
+          「行けない」という形で心が限界を示す
+        </div>
+      </div>
+      <div class="whisper fade-in">「学校に行けない子」ではなく、「評価から逃げたい子」——そう見ると、何が必要かが変わります。</div>
+    </div>
+
+    <!-- ③ -->
+    <div class="section-block">
+      <div class="section-heading fade-in">③ 人間疎外の限界　— お母さんの労働は、なぜ評価されないのか —</div>
+      <p class="fade-in">朝、子どもを起こして、食事を作って、不登校になれば何倍もの時間とエネルギーをそばに注ぐ。でもそのすべては「無償」です。これは、あなたが価値のないことをしているからではありません。</p>
+      <div class="accent-box fade-in">
+        請求書の宛先が間違っていたのです。<br><br>
+        本当の受益者は、社会全体のはず。<br>
+        <strong>でも今の仕組みでは、その請求書があなた一人に届く。</strong>
+      </div>
+    </div>
+
+    <!-- ④ -->
+    <div class="section-block">
+      <div class="section-heading fade-in">④ AIの進歩がもたらす問い　— 「人間である」ことの意味 —</div>
+      <p class="fade-in">AIが得意なのは「決まったルールに従って処理すること」。では、AIが苦手なことは何でしょうか。</p>
+      <div class="pillar-list fade-in">
+        <div class="pillar-item">
+          <div class="pillar-num-badge">✕</div>
+          <div class="pillar-content">
+            <div class="pillar-title">AIにできないこと</div>
+            <p class="pillar-body">悲しんでいる人のそばにいること。意味のない時間を一緒に楽しむこと。何が大切かを問い続けること。失敗した人を責めずに待つこと。</p>
+          </div>
+        </div>
+      </div>
+      <p class="fade-in">だとすれば、これからの時代に子どもに育ててあげるべき力は、「テストで高得点を取る力」ではなく、「感じる力、つながる力、問い続ける力」ではないでしょうか。</p>
+      <div class="whisper fade-in">リノハナの活動は、まさにその力を育てることを目指しています。</div>
+    </div>
+
+    <!-- ⑤ -->
+    <div class="section-block">
+      <div class="section-heading fade-in">⑤ 氷山の水面下にあるもの　— 一番大切なことは、見えにくい場所にある —</div>
+
+      <div class="quote-box fade-in">
+        <blockquote>
+          食べれる　笑える　生きている<br>
+          それだけで幸せ
+        </blockquote>
+        <cite>── 平成30年豪雨　吉田中学校 ２年２組</cite>
+      </div>
+
+      <p class="fade-in">この言葉を読んだとき、胸に何かが刺さる感覚があるとしたら、それはなぜでしょうか。「食べられること」「笑えること」「生きていること」——これらは、評価・偏差値・便利さよりずっと深いところにある、「なくてはならないもの」です。</p>
+      <p class="fade-in">子どもたちは、水面上のものだけでは生きられないことを、大人より正直に感じている。</p>
+      <div class="accent-box fade-in">
+        リノハナが守ろうとしているのは、水面下にある、<br>
+        <strong>「つながり」「志・信頼」「愛・命」という本質的な価値です。</strong><br><br>
+        それは目に見えにくく、点数にならない。<br>
+        でも、それなしでは、人は生きていけない。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 第三章 -->
+<section class="chapter" id="ch-3">
+  <div class="container">
+    <div class="chapter-eyebrow fade-in">chapter 03</div>
+    <h2 class="chapter-title fade-in">リノハナという名前に込めた願い</h2>
+
+    <div class="section-block">
+      <div class="section-heading fade-in">「LINO」と「OHANA」——二つの言葉が出会った理由</div>
+      <p class="fade-in">リノハナという名前は、ハワイ語の二つの言葉から作られています。「LINO（リノ）」は「輝く」という意味。「OHANA（オハナ）」は「家族・仲間・心でつながる人たち」という意味です。</p>
+      <p class="fade-in">「OHANA」という概念は、血のつながりや制度的な関係を超えた、選ばれたつながりです。同じ痛みを知っている人、同じ問いを抱えている人——そういう人たちが、自然に集まってくる場所。それがリノハナです。</p>
+    </div>
+
+    <div class="section-block">
+      <div class="section-heading fade-in">「不登校は入口であって、目的地ではない」——この言葉の意味</div>
+      <div class="accent-box fade-in">
+        不登校という状況は、あなたとあなたの子どもが<br>
+        リノハナに出会うきっかけ（入口）ではあっても、<br><br>
+        リノハナの目的は、<strong>「不登校を直すこと」ではなく、</strong><br>
+        <strong>「すべての人が自分らしく輝ける地域をつくること」</strong>です。
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-heading fade-in">「花は、無理に咲かせるものじゃない」</div>
+      <p class="fade-in">お母さんたちが一番つらいのは、「早くなんとかしなければ」というプレッシャーではないでしょうか。周りから「まだ学校に行けていないの？」と言われるたびに、焦りが募る。</p>
+      <p class="fade-in">でも花に向かって「早く咲け」と叫んでも、花は早く咲きません。むしろ、怒鳴られた植物は傷む。必要なのは、焦ることではなく、土を整えること。光を届けること。水を与えること。</p>
+      <div class="whisper fade-in">「待つ」ことは、「何もしない」ことではありません。信じて、そばにいること。それは、最も深い関わり方です。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 第四章 -->
+<section class="chapter" id="ch-4">
+  <div class="container">
+    <div class="chapter-eyebrow fade-in">chapter 04</div>
+    <h2 class="chapter-title fade-in">活動の目的</h2>
+
+    <div class="section-block">
+      <div class="section-heading fade-in">「自分として生きる力」— 他人の目が怖くなくなる、ということ —</div>
+      <p class="fade-in">「他のお母さんはちゃんとやっているのに、私は……」——この感覚は、子どもだけでなく、親の中にもあります。</p>
+      <div class="accent-box fade-in">
+        「自分として生きる力」は、<strong>お母さん自身にも必要な力です。</strong><br><br>
+        「正しいお母さんでなければならない」という鎧を、少しだけ脱いでいい。<br>
+        リノハナはそのための場でもあります。
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-heading fade-in">「他者と対話する力」— 「話す」ではなく「はなす」 —</div>
+      <p class="fade-in">はなすCAFÉの「はなす」は、「話す」と「放す」の二つの意味を持っています。「聴いてもらえる」体験は、人の心を動かします。アドバイスをもらわなくても、「そうか、あなたはそう感じていたんだね」とただ受け取ってもらえるだけで、不思議なほど心が軽くなる。</p>
+    </div>
+
+    <div class="section-block">
+      <div class="section-heading fade-in">「他者と協働して生きる力」— 恩を受け取り、次の人へ渡す —</div>
+      <p class="fade-in">「うちの子が落ち着いたら、今度は私が誰かのそばにいる人になりたい」と思ったことはありませんか。その感覚が、協働して生きる力の芽です。</p>
+      <p class="fade-in">リノハナは、支援する人と支援される人が固定されない場を目指しています。今日助けられた人が、明日は誰かを支える側にいる——そういう「役割の流れる関係」が、本当の地域の力になると信じています。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 第五章 -->
+<section class="chapter" id="ch-5">
+  <div class="container">
+    <div class="chapter-eyebrow fade-in">chapter 05</div>
+    <h2 class="chapter-title fade-in">活動の内容</h2>
+
+    <div class="section-block">
+      <div class="section-heading fade-in">「解決しない」活動が、なぜ大切なのか</div>
+      <p class="fade-in">「問題を解決すること」を目標にした瞬間、子どもは「解決されるべき問題」になります。すると「あなたには解決すべき問題がある」というメッセージが、活動のたびに子どもに届いてしまう。</p>
+      <div class="accent-box fade-in">
+        「できた・できない」ではなく、「やってみた」。<br>
+        「正解・不正解」ではなく、「感じた」。<br><br>
+        <strong>その積み重ねが、子どもの内側から「自分として生きる力」を育てていきます。</strong>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-heading fade-in">お母さんへの活動、でもある</div>
+      <p class="fade-in">子どものそばにいながら、自分も何かを感じ、表現し、笑える時間——それがお母さんの心の余白を作り、その余白がまた、子どもへの関わりを変えていきます。</p>
+      <div class="whisper fade-in">「お母さんが変わると、子どもが変わる」——これは責任転嫁ではありません。お母さんが自分自身を少し大切にできる場が生まれることで、自然と家の空気が変わる、という経験則です。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 第六章 -->
+<section class="chapter" id="ch-6">
+  <div class="container">
+    <div class="chapter-eyebrow fade-in">chapter 06</div>
+    <h2 class="chapter-title fade-in">活動における基本姿勢</h2>
+
+    <p class="fade-in">「解決しない・評価しない・比べない・続ける・問い続ける」——それぞれに、深い理由があります。</p>
+
+    <div class="stance-cards fade-in">
+      <div class="stance-card">
+        <div class="stance-kw">解決しない</div>
+        <p class="stance-why">あなたも、あなたの子どもも、そのままでここにいていい。答えを出すより、問いとともにいることを大切にします。</p>
+      </div>
+      <div class="stance-card">
+        <div class="stance-kw">評価しない</div>
+        <p class="stance-why">評価から離れた場所でだけ、人は「評価されていない自分」を発見できます。その発見が、自己信頼の最初の一歩。</p>
+      </div>
+      <div class="stance-card">
+        <div class="stance-kw">比べない</div>
+        <p class="stance-why">「他の子は」という比較は日常に溢れています。リノハナは意識的に、比較のない言語空間を作ります。</p>
+      </div>
+      <div class="stance-card">
+        <div class="stance-kw">続ける</div>
+        <p class="stance-why">「またここに来ていい」という継続性の中でだけ、本当の安心感が育まれます。</p>
+      </div>
+      <div class="stance-card">
+        <div class="stance-kw">問い続ける</div>
+        <p class="stance-why">リノハナ自身への戒め。「正しいことをしている」という確信が強くなると、それ自体が新たな抑圧の始まりになる。</p>
+      </div>
+    </div>
+
+    <div class="whisper fade-in">この五つの姿勢は、リノハナが参加者に向けて言っているのと同時に、リノハナ自身への誓いでもあります。</div>
+  </div>
+</section>
+
+<!-- 結びに -->
+<section class="closing" id="ch-close">
+  <div class="container">
+    <h2 class="fade-in">結びに<br>— あの石碑の言葉と、あなたへの手紙 —</h2>
+
+    <p class="fade-in">子どもが不登校になったとき、多くの親が初めて「今日、うちの子が笑った」という一瞬を、宝物のように感じた体験があるのではないでしょうか。その感覚は、正しい。</p>
+
+    <div class="closing-accent fade-in">
+      リノハナは、あなたのその感覚を、<br>
+      「正しかった」と伝えるために生まれた場所です。<br><br>
+      あなたが感じてきた「何かおかしい」という違和感、<br>
+      「こんなはずじゃない」という痛み、<br>
+      「もっと違う形があるはずだ」という希望——<br><br>
+      それらはすべて、間違っていなかった。
+    </div>
+
+    <p class="fade-in">リノハナは、まだ小さな、でも本気の場所です。答えを持っているわけではありません。でも、同じ問いを抱えた人が集まって、一緒に問い続けること——その場を作ることが、私たちにできる最初の一歩だと信じています。</p>
+    <p class="fade-in">もし、この解説書を読んで「一度行ってみようか」と思ったなら——どうかそのまま来てください。答えを持ってこなくていいです。「わからないこと」を持ってきてくれれば、それで十分です。</p>
+    <p class="fade-in">私たちは、ここにいます。</p>
+
+    <div class="closing-sign fade-in">
+      リノハナ（LINOHANA）<br>
+      一人ひとりの光を大切にする温かい場所
+    </div>
+  </div>
+</section>
+
+<!-- LINK BAR -->
+<div class="link-bar">
+  <a href="linohana_purpose.html">← 設立趣意書を読む</a>
+</div>
+
+<script>
+  // Fade in on scroll
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.1});
+  fadeEls.forEach(el=>observer.observe(el));
+
+  // Chapter nav active
+  const navLinks = document.querySelectorAll('.chapter-nav a');
+  const chapterIds = ['ch-intro','ch-1','ch-2','ch-3','ch-4','ch-5','ch-6','ch-close'];
+
+  function updateNav(){
+    const mid = window.scrollY + window.innerHeight * 0.4;
+    let active = 0;
+    chapterIds.forEach((id,i)=>{
+      const el = document.getElementById(id);
+      if(el && el.offsetTop <= mid) active = i;
+    });
+    navLinks.forEach((a,i)=> a.classList.toggle('active', i===active));
+  }
+
+  window.addEventListener('scroll', updateNav, {passive:true});
+  updateNav();
+</script>
+</body>
+</html>
